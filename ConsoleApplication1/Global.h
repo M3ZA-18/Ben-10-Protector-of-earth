@@ -97,6 +97,7 @@ bool miniopened = 0;
 string passlist[8]{ "E ", "8 " , "R ", "4 " , "F " , "9 " , "4 " , "A " };
 
 string minilist[8] = { "4 " , "R " , "8 " , "E " , "A " , "4 " , "9 " , "F " };
+string minilistre[8] = { "4 " , "R " , "8 " , "E " , "A " , "4 " , "9 " , "F " };
 
 
 

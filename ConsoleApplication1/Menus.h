@@ -1271,7 +1271,6 @@ void minigamescreen(RenderWindow& window)
                 if (currentpo == minitext[i].getPosition().x || currentpo == minitext[i].getPosition().x - 100) {
                     swap(minilist[i], minilist[i + 1]);
                     break;
-                    //minilist[i] = fnum[i][0];
                 }
             }
             minienterpressed = 1;
@@ -1334,18 +1333,11 @@ void minigamescreen(RenderWindow& window)
         minitimer.setString('0' + to_string(remaningsec) + ":" + to_string(disml));
     else if (remaningsec < 10 && disml < 10)
         minitimer.setString('0' + to_string(remaningsec) + ":0" + to_string(disml));
-
     if (remainingml == 0)
         minitimer.setString('0' + to_string(remaningsec) + ":0" + to_string(disml));
 
-    pass[0].setPosition(Vector2f(300, 350));
-    pass[1].setPosition(Vector2f(400, 350));
-    pass[2].setPosition(Vector2f(500, 350));
-    pass[3].setPosition(Vector2f(600, 350));
-    pass[4].setPosition(Vector2f(700, 350));
-    pass[5].setPosition(Vector2f(800, 350));
-    pass[6].setPosition(Vector2f(900, 350));
-    pass[7].setPosition(Vector2f(1000, 350));
+    for (int i = 0; i < 8; i++)
+        pass[i].setPosition(Vector2f(100 * (i + 3), 350));
     window.clear();
     View uiView(FloatRect(0, 0, 1800, 900));
     window.setView(uiView);
@@ -1355,11 +1347,15 @@ void minigamescreen(RenderWindow& window)
         window.draw(minitext[i]);
         window.draw(pass[i]);
     }
-    //window.draw(minigamerect);
 
     window.draw(minitimer);
     window.draw(movingminisp);
-    if (passlist[0] == minilist[0] && passlist[1] == minilist[1] && passlist[2] == minilist[2] && passlist[3] == minilist[3] && passlist[4] == minilist[4] && passlist[5] == minilist[5] && passlist[6] == minilist[6] && passlist[7] == minilist[7])
+    int equal = 0;
+    for (int i = 0; i < 8; i++) {
+        if (passlist[i] == minilist[i])
+            equal++;
+    }
+    if (equal == 8)
     {
         done = 1;
         miniword.setString("boom");
@@ -1375,7 +1371,7 @@ void minigamescreen(RenderWindow& window)
         openlock = 1;
         if (countcount >= 100) {
             menuIndex = 2;
-  
+
             isTransing = false;
         }
     }
@@ -1393,22 +1389,12 @@ void minigamescreen(RenderWindow& window)
 
         window.display();
         if (countcount >= 100) {
-            minilist[0] = "4 ";
-            minilist[1] = "R ";
-            minilist[2] = "8 ";
-            minilist[3] = "E ";
-            minilist[4] = "A ";
-            minilist[5] = "4 ";
-            minilist[6] = "9 ";
-            minilist[7] = "F ";
-            
+            for (int i = 0; i < 8; i++)
+                minilist[i] = minilistre[i];
             menuIndex = 2;
-            
         }
     }
     else
 
         window.display();
-
-
 }

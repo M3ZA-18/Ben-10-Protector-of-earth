@@ -25,7 +25,7 @@ using namespace sf;
 // fly mode
 bool is_flying = false;
 Clock flying;
-float flying_time = 200.0f, maxflytime = 200.0f, rororo = 0;
+float flying_time = 13.0f, maxflytime = 13.0f, rororo = 0;
 bool fwaspressed = 0, flyhit = 0;
 float flyscale = 2.4;
 
