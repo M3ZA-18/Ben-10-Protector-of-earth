@@ -1,0 +1,49 @@
+// --- UPGRADED TILE COLLISION LOGIC ---
+    bool touchedGround = false;
+    FloatRect playerBounds = characterbox[current_player].getGlobalBounds();
+
+    // 1. Check collisions against the Grid Map
+    for (int x = 0; x < mapW; x++) {
+        for (int y = 0; y < mapH; y++) {
+            if (mapData[x][y].hasCollision) {
+                // Calculate exactly where this tile is in the world
+                FloatRect tileBounds(x * tileSize, y * tileSize, mapData[x][y].textureRect.width, mapData[x][y].textureRect.height);
+
+                // If the player touches the tile...
+                if (playerBounds.intersects(tileBounds)) {
+                    // ...and the player is falling downward (landing on top of it)
+                    if (velocity.y > 0 && playerBounds.top < tileBounds.top) {
+                        // Snap the player exactly to the top edge of the tile!
+                        characterbox[current_player].setPosition(characterbox[current_player].getPosition().x, tileBounds.top - (playerBounds.height / 2.0f));
+                        velocity.y = 0;
+                        touchedGround = true;
+                    }
+                }
+            }
+        }
+    }
+
+    // 2. Check collisions against placed Entities (like floating platforms)
+    for (int i = 0; i < levelObjects.size(); i++) {
+        if (levelObjects[i].hasCollision) {
+            FloatRect entBounds = levelObjects[i].hitbox;
+            if (playerBounds.intersects(entBounds)) {
+                if (velocity.y > 0 && playerBounds.top < entBounds.top) {
+                    characterbox[current_player].setPosition(characterbox[current_player].getPosition().x, entBounds.top - (playerBounds.height / 2.0f));
+                    velocity.y = 0;
+                    touchedGround = true;
+                }
+            }
+        }
+    }
+
+    // 3. Update Jumping State
+    if (touchedGround) {
+        if (!onground) {
+            jumpClock.restart();
+            onground = true;
+        }
+    } else {
+        // If we didn't touch ANY ground this frame, we are falling!
+        onground = false; 
+    }
