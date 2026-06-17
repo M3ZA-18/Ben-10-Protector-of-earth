@@ -885,7 +885,9 @@ void movement()
 			int jumpFrames = jumpFramesCount[current_player];
 
 			if (animClock.getElapsedTime().asSeconds() > 0.1f) {
+				if(jumpFrames==1&&current_player!=ben)
 				jumpIndex = (jumpIndex + 1) % jumpFrames;
+				
 				animClock.restart();
 
 				player[current_player].setTexture(jump_animation[current_player], true);
