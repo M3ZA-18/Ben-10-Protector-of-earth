@@ -20,7 +20,17 @@
 #include<cmath>
 using namespace std;
 using namespace sf;
-
+void saveLevel(int currentLevel) {
+    std::ofstream outFile("save_Current_Level.sav");
+    if (outFile.is_open()) {
+        outFile << currentLevel << "\n";
+        outFile.close();
+        std::cout << "Game saved successfully!\n";
+    }
+    else {
+        std::cerr << "Error: Unable to open file for saving.\n";
+    }
+}
 void menu_start() {
 
     //loading menus frames
@@ -414,6 +424,8 @@ void menu_start() {
 void mainmenu1(RenderWindow& window) {
     while (window.pollEvent(event)) {
         if (event.type == Event::Closed) {
+
+            saveLevel(currentEditorLevel);
             window.close();
         }
         if (event.type == Event::KeyPressed) {
@@ -458,6 +470,8 @@ void mainmenu2(RenderWindow& window)
 {
     while (window.pollEvent(event)) {
         if (event.type == Event::Closed) {
+
+            saveLevel(currentEditorLevel);
             window.close();
         }
         maintext[menu_point].setFillColor(Color::White);
@@ -526,6 +540,8 @@ void mainmenu2(RenderWindow& window)
                     enter_sound.play();
                 }
                 if (menu_point == 3) {
+
+                    saveLevel(currentEditorLevel);
                     window.close();
 
                 }
@@ -551,6 +567,8 @@ void settings(RenderWindow& window)
 {
     while (window.pollEvent(event)) {
         if (event.type == Event::Closed) {
+
+            saveLevel(currentEditorLevel);
             window.close();
         }
         setting_text[setting_point].setFillColor(Color::White);
@@ -671,6 +689,8 @@ void pausemenu(RenderWindow& window)
 {
     while (window.pollEvent(event)) {
         if (event.type == Event::Closed) {
+
+            saveLevel(currentEditorLevel);
             window.close();
         }
         pause_text[pause_point].setFillColor(Color::Color(180, 255, 150));
@@ -767,6 +787,8 @@ void gameover(RenderWindow& window)
 {
     while (window.pollEvent(event)) {
         if (event.type == Event::Closed) {
+
+            saveLevel(currentEditorLevel);
             window.close();
         }
         losstext[loss_point].setFillColor(Color::White);
@@ -872,6 +894,8 @@ void win(RenderWindow& window)
 {
     while (window.pollEvent(event)) {
         if (event.type == Event::Closed) {
+
+            saveLevel(currentEditorLevel);
             window.close();
         }
         
@@ -1031,6 +1055,8 @@ void credits(RenderWindow& window)
 {
     while (window.pollEvent(event)) {
         if (event.type == Event::Closed) {
+
+            saveLevel(currentEditorLevel);
             window.close();
         }
         if (event.type == Event::KeyPressed) {
@@ -1069,6 +1095,8 @@ void about_game(RenderWindow& window)
 {
     while (window.pollEvent(event)) {
         if (event.type == Event::Closed) {
+
+            saveLevel(currentEditorLevel);
             window.close();
         }
         if (event.type == Event::KeyPressed) {
@@ -1092,6 +1120,8 @@ void about_game(RenderWindow& window)
 void aliens_info(RenderWindow& window) {
     while (window.pollEvent(event)) {
         if (event.type == Event::Closed) {
+
+            saveLevel(currentEditorLevel);
             window.close();
         }
         
@@ -1226,6 +1256,7 @@ void how_to_play(RenderWindow& window)
 {
     while (window.pollEvent(event)) {
         if (event.type == Event::Closed) {
+            saveLevel(currentEditorLevel);
             window.close();
         }
         if (event.type == Event::KeyPressed) {
@@ -1304,6 +1335,7 @@ void minigamescreen(RenderWindow& window)
 
     while (window.pollEvent(event)) {
         if (event.type == Event::Closed) {
+            saveLevel(currentEditorLevel);
             window.close();
         }
     }

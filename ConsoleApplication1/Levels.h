@@ -30,7 +30,11 @@ void game() {
     {
 
         if (event.type == Event::Closed)
+        {
+
+            saveLevel(currentEditorLevel);
             window.close();
+    }
 
             handleDialogueEvents(event);
              

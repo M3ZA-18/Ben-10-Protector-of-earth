@@ -634,8 +634,24 @@ void GeddoCarFun() {
 	CarSp.setPosition(CarBox.getPosition().x, CarBox.getPosition().y - 20);
 	CarSp.setScale(0.7, 0.7);
 }
+int loadLevel() {
+	int level = 1; // Default to level 1 if no save exists
+	std::ifstream inFile("save_Current_Level.sav");
+
+	if (inFile.is_open()) {
+		inFile >> level;
+		inFile.close();
+		std::cout << "Game loaded successfully. Resuming at Level " << level << ".\n";
+	}
+	else {
+		std::cout << "No save file found. Starting a new game.\n";
+	}
+	return level;
+}
+
 void start()
 {
+	currentEditorLevel = loadLevel();
 	OmnitrixBubbleTospriteFun();
 	hpBubbleTospriteFun();
 	playerHealthGotDamage();
