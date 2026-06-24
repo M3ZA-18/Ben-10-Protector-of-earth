@@ -1,4 +1,4 @@
-
+// random level is 6
 
 #pragma once
 #include <SFML/Graphics.hpp>
@@ -638,7 +638,10 @@ void movement()
 			}
 		}
 
-		if (!wall) canclimb = 0;
+		if (!wall) {
+			canclimb = 0; 
+		characterbox[current_player].move(10,10);
+		}
 		if (Keyboard::isKeyPressed(Keyboard::S)) {
 			velocity.y = 2.0f;
 
@@ -742,7 +745,6 @@ void movement()
 	//player move
 
 	player[current_player].setPosition(characterbox[current_player].getPosition());
-	
 	characterboxarm[current_player].setPosition(characterbox[current_player].getPosition().x + player[current_player].getScale().x * characterboxarm[current_player].getLocalBounds().width / 2.0f, characterbox[current_player].getPosition().y - characterbox[current_player].getSize().y * 2 / 3.0f);
 	if (current_player == ben&& player[current_player].getScale().x<0) {
 		characterboxarm[current_player].setPosition(characterbox[current_player].getPosition().x - (characterboxarm[current_player].getLocalBounds().width / 4.0f), characterbox[current_player].getPosition().y - characterbox[current_player].getSize().y * 2 / 3.0f);
@@ -1181,6 +1183,9 @@ void draw() {
 
 	for (int i = 0; i < levelObjects.size(); i++) {
 		window.draw(levelObjects[i].sprite);
+	}
+	if (current_player == ben && player[current_player].getScale().x < 0) {
+		characterboxarm[current_player].setPosition(characterbox[current_player].getPosition().x - (characterboxarm[current_player].getLocalBounds().width / 4.0f), characterbox[current_player].getPosition().y - characterbox[current_player].getSize().y * 2 / 3.0f);
 	}
 	if (current_player == Transes::bigchuck) {
 		int dir = (player[current_player].getScale().x > 0) ? 1 : -1;
