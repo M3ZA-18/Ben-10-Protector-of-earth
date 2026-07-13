@@ -576,8 +576,8 @@ void update_enemy_movement(first_e& e) {
 	}
 
 
-	if (recoveryClock.getElapsedTime().asSeconds() >= 3.0f && (playerBounds.intersects(enemyBounds)
-		|| (playerBounds.intersects(e.boxarm.getGlobalBounds()) && e.damage))&& !cheatCodeHealthActive) {
+	if (((recoveryClock.getElapsedTime().asSeconds() >= 3.0f && (playerBounds.intersects(enemyBounds)
+		|| (playerBounds.intersects(e.boxarm.getGlobalBounds()) && e.damage)) && !cheatCodeHealthActive) && !dash_animation)) {
 		if (e.enemy_type < 2) { hp -= 10; }
 		else hp -= 10;
 		recoveryClock.restart();

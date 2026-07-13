@@ -270,7 +270,7 @@ enum Transes {
 enum Enemy_type {
     First = 0, Second = 1, Level1Boss = 2
 };
-int unlockedaliens = 7;
+int unlockedaliens = 2;
 
 
 
@@ -286,6 +286,11 @@ struct Raindrop {
     float speed;
     float length;
 };
+
+//dash
+Clock dash;
+bool dash_animation = false;
+Sprite dash_sp;
 
 const int NUM_DROPS = 300;
 Raindrop raindrops[NUM_DROPS];

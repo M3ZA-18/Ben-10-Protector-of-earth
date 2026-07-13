@@ -551,6 +551,18 @@ void movement()
 		}
 	}
 
+	dash_animation = false;
+	if (Keyboard::isKeyPressed(Keyboard::LShift) && current_player != ben && onground) {
+		if (dash.getElapsedTime().asSeconds() > 3.0f)
+			dash.restart();
+		if (dash.getElapsedTime().asSeconds() <= .2f)
+		{
+			velocity.x = (player[current_player].getScale().x) * speed[current_player].speedX * 2;
+			dash_animation = true;
+		}
+
+	}
+
 	//collision logic
 	velocity.y += 0.5f;
 	float fall_speed = velocity.y;
@@ -1121,7 +1133,7 @@ void update()
 
 	for (int i = 0; i < fireballs.size(); i++) {
 		update_fireball(fireballs[i]);
-		if (recoveryClock.getElapsedTime().asSeconds() >= 0.1f && characterbox[current_player].getGlobalBounds().intersects(fireballs[i].shape.getGlobalBounds())) {
+		if (recoveryClock.getElapsedTime().asSeconds() >= 0.1f && characterbox[current_player].getGlobalBounds().intersects(fireballs[i].shape.getGlobalBounds()) && !dash_animation) {
 			if(!cheatCodeHealthActive)
 			hp -= 10;
 
@@ -1199,6 +1211,18 @@ void draw() {
 	window.draw(CarSp);
 	//window.draw(characterbox[current_player]);
 	//window.draw(characterboxarm[current_player]);
+	if (dash_animation) {
+		dash_sp = player[current_player];
+		for (int i = 0; i < 5; i++) {
+			float current_pos = player[current_player].getPosition().x + ((player[current_player].getScale().x) * player[current_player].getLocalBounds().getSize().x * .25 + (player[current_player].getScale().x) * player[current_player].getLocalBounds().getSize().x * i * .25) * -1;
+			dash_sp.setPosition(current_pos, player[current_player].getPosition().y);
+			int alpha = 200 - (i * 40);
+			if (alpha < 0) alpha = 0;
+			dash_sp.setColor(sf::Color(255, 255, 255, alpha));
+
+			window.draw(dash_sp);
+		}
+	}
 	window.draw(player[current_player]);
 
 	// الـ trans overlay فوق الشخصية
