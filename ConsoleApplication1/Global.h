@@ -270,7 +270,7 @@ enum Transes {
 enum Enemy_type {
     First = 0, Second = 1, Level1Boss = 2
 };
-int unlockedaliens = 2;
+int unlockedaliens = 3;
 
 
 
